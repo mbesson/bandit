@@ -5,6 +5,7 @@ package model
   *
   * Created by mathieu on 09/10/2016.
   */
-class Bandit(nbArm: Int) {
-
+class Bandit(armList: List[Arm]) {
+  // The number of arms in the bandit problem.
+  val nbArm: Int = armList.size
 }
