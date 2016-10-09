@@ -9,6 +9,6 @@ import model.Bandit
   * Created by mathieu on 09/10/2016.
   */
 class EpsilonGreedy(bandit: Bandit, epsilon: Float) {
-  var counts: Vector[Int] = Vector.empty
-  var values: Vector[Float] = Vector.empty
+  var counts: Vector[Int] = Vector.fill(bandit.nbArm)(0)
+  var values: Vector[Double] = Vector.fill(bandit.nbArm)(0.0)
 }
