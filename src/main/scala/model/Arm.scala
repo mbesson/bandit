@@ -5,4 +5,5 @@ package model
   */
 class Arm(name: String) {
 
+  def getNme(): String = this.name
 }

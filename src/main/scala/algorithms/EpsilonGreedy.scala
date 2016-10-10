@@ -2,6 +2,7 @@ package algorithms
 
 import model.{Arm, Bandit}
 
+import scala.collection.immutable.HashMap
 import scala.util.Random
 
 /**
@@ -13,11 +14,9 @@ import scala.util.Random
 class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
   val banditArms: Set[Arm] = bandit.getArm()
 
-  var counts: Map[Arm, Int] = Map[Arm, Int]()
-  for(arm <- banditArms) counts + (arm -> 0)
+  var counts = (banditArms.toList zip List.fill(banditArms.size)(0)).toMap
 
-  var values: Map[Arm, Double] = Map[Arm, Double]()
-  for(arm <- banditArms) values + (arm -> 0.0)
+  var values = (banditArms.toList zip List.fill(banditArms.size)(0.0)).toMap
 
   def ind_max(x: Map[Arm, Double]) = x.maxBy(_._2)
 
@@ -33,5 +32,13 @@ class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
     val value = this.values(chosen_arm)
     val new_value = ((n - 1) / n.toFloat) * value + (1 / n.toFloat) * reward
     this.values.updated(chosen_arm, new_value)
+  }
+
+  def printValues(): Unit = {
+    for ((k,v) <- values) printf("Arm: %s, value: %s\n", k.getNme(), v)
+  }
+
+  def printCounts(): Unit = {
+    for ((k,v) <- counts) printf("Arm: %s, count: %s\n", k.getNme(), v)
   }
 }
