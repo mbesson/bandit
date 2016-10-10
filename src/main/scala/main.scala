@@ -9,9 +9,11 @@ import model.{Arm, Bandit}
 object main extends App{
   println("Multiarmed Bandit Problem")
 
-  val arm: Arm = new Arm("toto")
+  val arm1: Arm = new Arm("1")
+  val arm2: Arm = new Arm("2")
+  val arm3: Arm = new Arm("3")
 
-  val bandit: Bandit = new Bandit(Set(arm))
+  val bandit: Bandit = new Bandit(Set(arm1, arm2, arm3))
   val espGreedy = new EpsilonGreedy(bandit, 0.001)
 
   for(elem <- espGreedy.counts) println(elem)

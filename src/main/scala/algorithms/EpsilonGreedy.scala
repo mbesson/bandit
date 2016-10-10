@@ -19,7 +19,7 @@ class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
   var values: Map[Arm, Double] = Map[Arm, Double]()
   for(arm <- banditArms) values + (arm -> 0.0)
 
-  def ind_max(x: Map[Arm, Double]): (Arm, Double) = x.max
+  def ind_max(x: Map[Arm, Double]) = x.maxBy(_._2)
 
   def select_arm (): Arm = {
     if (Random.nextDouble() > this.epsilon) ind_max(this.values)._1
@@ -27,10 +27,11 @@ class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
   }
 
   def update (chosen_arm: Arm, reward: Double): Unit = {
-    this.counts(chosen_arm) += 1
+    this.counts.updated(chosen_arm, counts(chosen_arm) + 1)
     val n = this.counts(chosen_arm)
 
     val value = this.values(chosen_arm)
     val new_value = ((n - 1) / n.toFloat) * value + (1 / n.toFloat) * reward
+    this.values.updated(chosen_arm, new_value)
   }
 }
