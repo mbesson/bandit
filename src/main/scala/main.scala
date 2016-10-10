@@ -11,7 +11,7 @@ object main extends App{
 
   val arm: Arm = new Arm("toto")
 
-  val bandit: Bandit = new Bandit(List(arm))
+  val bandit: Bandit = new Bandit(Set(arm))
   val espGreedy = new EpsilonGreedy(bandit, 0.001)
 
   for(elem <- espGreedy.counts) println(elem)
