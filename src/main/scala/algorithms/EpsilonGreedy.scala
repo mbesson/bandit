@@ -1,6 +1,6 @@
 package algorithms
 
-import model.Bandit
+import model.{Arm, Bandit}
 
 import scala.util.Random
 
@@ -11,17 +11,22 @@ import scala.util.Random
   * Created by mathieu on 09/10/2016.
   */
 class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
-  var counts: Vector[Int] = Vector.fill(bandit.nbArm)(0)
-  var values: Vector[Double] = Vector.fill(bandit.nbArm)(0.0)
+  val banditArms: Set[Arm] = bandit.getArm()
 
-  def ind_max(x: Vector[Double]): Int = x.indexOf(x.max)
+  var counts: Map[Arm, Int] = Map[Arm, Int]()
+  for(arm <- banditArms) counts + (arm -> 0)
 
-  def select_arm (): Int = {
-    if (Random.nextDouble() > this.epsilon) ind_max(this.values)
-    else Random.nextInt(this.values.size)
+  var values: Map[Arm, Double] = Map[Arm, Double]()
+  for(arm <- banditArms) values + (arm -> 0.0)
+
+  def ind_max(x: Map[Arm, Double]): (Arm, Double) = x.max
+
+  def select_arm (): Arm = {
+    if (Random.nextDouble() > this.epsilon) ind_max(this.values)._1
+    else banditArms.toList(Random.nextInt(banditArms.size))
   }
 
-  def update (chosen_arm: Int, reward: Double): Unit = {
+  def update (chosen_arm: Arm, reward: Double): Unit = {
     this.counts(chosen_arm) += 1
     val n = this.counts(chosen_arm)
 
