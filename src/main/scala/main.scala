@@ -1,3 +1,6 @@
+import algorithms.EpsilonGreedy
+import model.{Arm, Bandit}
+
 /**
   * Main class of the project.
   *
@@ -5,4 +8,11 @@
   */
 object main extends App{
   println("Multiarmed Bandit Problem")
+
+  val arm: Arm = new Arm("toto")
+
+  val bandit: Bandit = new Bandit(List(arm))
+  val espGreedy = new EpsilonGreedy(bandit, 0.001)
+
+  for(elem <- espGreedy.counts) println(elem)
 }
