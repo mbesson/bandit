@@ -35,10 +35,10 @@ class EpsilonGreedy(bandit: Bandit, epsilon: Double) {
   }
 
   def printValues(): Unit = {
-    for ((k,v) <- values) printf("Arm: %s, value: %s\n", k.getNme(), v)
+    for ((k,v) <- values) printf("Arm: %s, value: %s\n", k.getName(), v)
   }
 
   def printCounts(): Unit = {
-    for ((k,v) <- counts) printf("Arm: %s, count: %s\n", k.getNme(), v)
+    for ((k,v) <- counts) printf("Arm: %s, count: %s\n", k.getName(), v)
   }
 }

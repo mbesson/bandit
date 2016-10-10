@@ -3,7 +3,9 @@ package model
 /**
   * Created by mathieu on 09/10/2016.
   */
-class Arm(name: String) {
+abstract class Arm() {
 
-  def getNme(): String = this.name
+  def getName(): String
+
+  def draw(): Int
 }
